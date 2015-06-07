@@ -90,11 +90,23 @@ Parser::Parser():
 	};
 
 	// stringEscape and unicodeChar
-	parserAut.getNode("stringEscape").defaultTransition = [this](char ch) {
-		addValue(ch);
-		return &parserAut.getNode("stringValue");
+	rs.setTrans("stringEscape","/\\\"","stringValue",addValueCh);
+	parserAut.setTrans("stringEscape",'b',"stringValue").output = [this](char) {
+		addValue('\b');
 	};
-	parserAut.setTrans("stringEscape",'u',"unicodeChar").output = [this](auto ch) {
+	parserAut.setTrans("stringEscape",'f',"stringValue").output = [this](char) {
+		addValue('\f');
+	};
+	parserAut.setTrans("stringEscape",'n',"stringValue").output = [this](char) {
+		addValue('\n');
+	};
+	parserAut.setTrans("stringEscape",'r',"stringValue").output = [this](char) {
+		addValue('\r');
+	};
+	parserAut.setTrans("stringEscape",'t',"stringValue").output = [this](char) {
+		addValue('\t');
+	};
+	parserAut.setTrans("stringEscape",'u',"unicodeChar").output = [this](auto) {
 		unicodeStr.clear();
 	};
 	parserAut.getNode("unicodeChar").defaultTransition = [this](char ch) -> Automata::NodeRef {
@@ -248,9 +260,7 @@ void Parser::changeContext(Status newStatus)
 {
 	contexts.push(context);
 	context.status = newStatus;
-	if( newStatus == Status::array ) {
-		context.objectName += "[]";
-	} else {
+	if( newStatus != Status::array ) {
 		context.objectName.clear();
 	}
 }
