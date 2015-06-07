@@ -1,6 +1,6 @@
 #include <tut.h>
 
-#include "../src/JsonParser.h"
+#include "../JsonParser.h"
 #include <sstream>
 #include <iostream>
 #include <vector>
@@ -85,7 +85,7 @@ namespace tut {
 	using std::istringstream;
 
 	typedef test_group<setup> tg;
-	tg parser_test_group("JsonParser");
+	tg parser_test_group("JsonParserOK");
 
 	typedef tg::object testobject;
 
@@ -423,8 +423,4 @@ namespace tut {
 		ensure_equals(arrays[6], "myObjects]");
 		ensure_equals(arrays[7], "myObjects]");
 	}
-
-	// incomplete parsing
-
-	// exceptions
 }
