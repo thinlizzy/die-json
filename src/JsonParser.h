@@ -68,7 +68,7 @@ public:
 
 	bool parse(std::basic_istream<CharType> & is);
 
-	Position getLastPosition() const { return pos; }
+	Position lastPosition() const { return pos; }
 private:
 	// aux dumb functions to avoid strange captures on local lambdas
 	using CharFunc = std::function<void(char)>;
