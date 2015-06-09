@@ -1,6 +1,6 @@
 #include <tut.h>
 
-#include "../JsonParser.h"
+#include "../die-json.h"
 #include <sstream>
 
 namespace {
@@ -135,7 +135,4 @@ namespace tut {
 		ensure_equals(pos.column, 16);
 	}
 }
-
-
-
 

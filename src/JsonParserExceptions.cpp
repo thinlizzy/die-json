@@ -13,12 +13,18 @@ std::string posToStr(die::json::Position const & pos)
 	return oss.str();
 }
 
-ExpectedChar::ExpectedChar(Position pos, char expected, char ch):
-	Exception(posToStr(pos) + " expected char "s + expected + " but it was "s + ch, ch)
+UnexpectedChar::UnexpectedChar(std::string const & message, char ch):
+	Exception(message),
+	ch(ch)
 {}
 
 UnexpectedChar::UnexpectedChar(Position pos, char ch):
-	Exception(posToStr(pos) + " unexpected char "s + ch, ch)
+	Exception(posToStr(pos) + " unexpected char "s + ch),
+	ch(ch)
+{}
+
+ExpectedChar::ExpectedChar(Position pos, char expected, char ch):
+	UnexpectedChar(posToStr(pos) + " expected char "s + expected + " but it was "s + ch, ch)
 {}
 
 } /* namespace json */

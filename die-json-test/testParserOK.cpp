@@ -1,6 +1,6 @@
 #include <tut.h>
 
-#include "../JsonParser.h"
+#include "../die-json.h"
 #include <sstream>
 #include <iostream>
 #include <vector>

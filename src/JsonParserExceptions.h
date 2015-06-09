@@ -9,23 +9,21 @@ namespace die {
 namespace json {
 
 class Exception: public std::invalid_argument {
-	char ch;
 public:
-	Exception(std::string const & message, char ch):
-		std::invalid_argument(message),
-		ch(ch)
-	{}
-	char offendingChar() const { return ch; }
-};
-
-class ExpectedChar: public Exception {
-public:
-	ExpectedChar(Position pos, char expected, char ch);
+	using std::invalid_argument::invalid_argument;
 };
 
 class UnexpectedChar: public Exception {
+	char ch;
 public:
+	UnexpectedChar(std::string const & message, char ch);
 	UnexpectedChar(Position pos, char ch);
+	char offendingChar() const { return ch; }
+};
+
+class ExpectedChar: public UnexpectedChar {
+public:
+	ExpectedChar(Position pos, char expected, char ch);
 };
 
 class UnexpectedObjectClosing: public UnexpectedChar {
