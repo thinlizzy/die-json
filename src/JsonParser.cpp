@@ -83,6 +83,7 @@ Parser::Parser():
 	parserAut.setTrans("stringValue",'\\',"stringEscape");
 	parserAut.setTrans("stringValue",'"',"endValue").output = [this](char ch) {
 		if( isObjectName ) {
+			if( valueStr.empty() ) throw EmptyObjectName(pos);
 			context.objectName = valueStr;
 		} else {
 			emitValue(ValueType::string);
@@ -110,7 +111,7 @@ Parser::Parser():
 		unicodeStr.clear();
 	};
 	parserAut.getNode("unicodeChar").defaultTransition = [this](char ch) -> Automata::NodeRef {
-		if( (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ) {
+		if( (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F') ) {
 			unicodeStr.push_back(ch);
 			if( unicodeStr.size() == 4 ) {
 				valueStr += CharTraits<CharType>::parseUnicode(unicodeStr);

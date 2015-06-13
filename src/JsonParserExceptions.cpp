@@ -27,5 +27,11 @@ ExpectedChar::ExpectedChar(Position pos, char expected, char ch):
 	UnexpectedChar(posToStr(pos) + " expected char "s + expected + " but it was "s + ch, ch)
 {}
 
+EmptyObjectName::EmptyObjectName(Position pos):
+	UnexpectedChar(posToStr(pos) + " empty object name"s, '"')
+{
+
+}
+
 } /* namespace json */
 } /* namespace die */

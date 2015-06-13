@@ -26,6 +26,11 @@ public:
 	ExpectedChar(Position pos, char expected, char ch);
 };
 
+class EmptyObjectName: public UnexpectedChar {
+public:
+	EmptyObjectName(Position pos);
+};
+
 class UnexpectedObjectClosing: public UnexpectedChar {
 public:
 	UnexpectedObjectClosing(Position pos): UnexpectedChar(pos,'}') {}
